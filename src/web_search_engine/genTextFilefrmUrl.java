@@ -7,7 +7,7 @@ public class genTextFilefrmUrl {
 	public static void main(String[] args) 
 		{
 		genTextFilefrmUrl fr= new genTextFilefrmUrl();  
-		In in = new In("data\\urllist.txt");
+		In in = new In("urlLinks\\urllist.txt");
 			int i=1;
 	        while (!in.isEmpty()) {
 	        	
