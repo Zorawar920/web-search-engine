@@ -39,8 +39,6 @@ public class storeHashMap {
 		  }
 		  
 		  try {
-
-			// Open given file in append mode.
 			BufferedWriter out = new BufferedWriter(
 			new FileWriter(file, true));
 			for(var entry : urlIndex.entrySet()) {

@@ -1,27 +1,21 @@
 package web_search_engine;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.*;
-import org.jsoup.Jsoup;
-
 import textprocessing.In;
+import textprocessing.TrieST;
 
 
 public class extractKeywords {
-	
-	private static HashMap<String, HashMap<String, Integer>> WordsMap = new HashMap<String, HashMap<String, Integer>>();
+	private static HashMap<String, TrieST<Integer>> WordsMap = new HashMap<String, TrieST<Integer>>();
 	
 public static String HtmlConversion(String link,int i)
 {  
@@ -31,7 +25,7 @@ public static String HtmlConversion(String link,int i)
 	    
         String pattern = "^[a-zA-Z0-9]+";
         
-        Pattern pt = Pattern.compile(pattern);
+        Pattern pt = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 		
 		StringBuilder st = new StringBuilder();
 		
@@ -79,27 +73,15 @@ public static ArrayList<String> extractTextWords(String content) {
 }
 
 private static void StoreWordOccurences(String link, ArrayList<String> list) {
-	
+if(!WordsMap.containsKey(link)) {
+	TrieST<Integer> st = new TrieST<Integer>();
+    int i =1;
 	for(String text : list) {
-		if(WordsMap.containsKey(link)) {
-			HashMap<String, Integer> innerMap = WordsMap.get(link);
-			
-			if(innerMap.containsKey(text)) {
-				int freq = innerMap.get(text);
-				freq++;	
-				innerMap.put(text, freq);
-			}else {
-				innerMap.put(text, 1);
-			}
-			WordsMap.put(link, innerMap);
-		}
-		else {
-			HashMap<String, Integer> innerMap = new HashMap<String, Integer>();
-			innerMap.put(text, 1);
-			WordsMap.put(link, innerMap);
-		}
+		st.put(text, i);
+		i++;
 	}
-	
+	WordsMap.put(link, st);
+   }
 }
 	public static void main(String[] args) {
 		ArrayList<String> links = new ArrayList<String>();
@@ -132,13 +114,15 @@ private static void StoreWordOccurences(String link, ArrayList<String> list) {
 	        catch (IOException e) {
 	            System.out.println("Exception Occurred" + e);
 	        }
-		  
-		  
 		  try {
 			BufferedWriter out = new BufferedWriter(
 			new FileWriter(file, true));
 			for(var entry : WordsMap.entrySet()) {
-				out.write(entry.getKey() + " " + entry.getValue());
+				out.write(entry.getKey() +"::" + "{");
+				for(var key : entry.getValue().keys()) {
+					out.write(key + ",");
+				}
+			out.write("}" + "\n");
 			}
 			out.flush();
 			out.close();
