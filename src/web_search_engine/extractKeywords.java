@@ -1,8 +1,10 @@
 package web_search_engine;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -19,7 +21,7 @@ import textprocessing.In;
 
 public class extractKeywords {
 	
-	private static HashMap<String, HashMap<String, Integer>> WordsMap;
+	private static HashMap<String, HashMap<String, Integer>> WordsMap = new HashMap<String, HashMap<String, Integer>>();
 	
 public static String HtmlConversion(String link,int i)
 {  
@@ -77,7 +79,7 @@ public static ArrayList<String> extractTextWords(String content) {
 }
 
 private static void StoreWordOccurences(String link, ArrayList<String> list) {
-	WordsMap = new HashMap<String, HashMap<String, Integer>>();
+	
 	for(String text : list) {
 		if(WordsMap.containsKey(link)) {
 			HashMap<String, Integer> innerMap = WordsMap.get(link);
@@ -114,7 +116,38 @@ private static void StoreWordOccurences(String link, ArrayList<String> list) {
 			 StoreWordOccurences(link, arr);
 			 i++;
 		}
-	
+	    StoreKeyWords();
 	}
-
+	
+	private static void StoreKeyWords() {
+	    String LocFile = "keywords\\keywordMap.dat";
+	    File file = new File(LocFile);
+	    
+		  try {
+	            BufferedWriter out = new BufferedWriter(
+	                          new FileWriter(file));
+	             out.close();
+	        }
+	        catch (IOException e) {
+	            System.out.println("Exception Occurred" + e);
+	        }
+		  
+		  
+		  try {
+			BufferedWriter out = new BufferedWriter(
+			new FileWriter(file, true));
+			for(var entry : WordsMap.entrySet()) {
+				out.write(entry.getKey() + " " + entry.getValue());
+			}
+			out.flush();
+			out.close();
+			}
+			catch (IOException e) {
+			System.out.println("exception occoured" + e);
+			}  
+		  
+	}
+		
 }
+
+
