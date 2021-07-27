@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 import textprocessing.In;
 
-public class storeHashMap {
+public class StoreHashMap {
 	
 	private HashMap<Integer, String> urlIndex;
 	  
 	public static void main(String[] args) {
-		storeHashMap sm= new storeHashMap();
+		StoreHashMap sm= new StoreHashMap();
 		sm.storeUrlIndex();
 	}
 	private void storeUrlIndex() {

@@ -12,13 +12,13 @@ import textprocessing.In;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class crawler {
+public class Crawler {
     private static final int MAX_DEPTH = 3;
     private static final int max_urls=20;
     private HashSet<String> links;
     private HashMap<Integer, String> urlIndex;
 
-    public crawler() {
+    public Crawler() {
         links = new HashSet<>();
     }
     
@@ -81,7 +81,7 @@ System.out.println("exception occoured" + e);
 	        catch (IOException e) {
 	            System.out.println("Exception Occurred" + e);
 	        }
-        new crawler().getPageLinks("https://www.w3.org/", 0);
+        new Crawler().getPageLinks("https://www.w3.org/", 0);
    
     }
 

@@ -13,13 +13,9 @@ public class WebPageRanking implements Comparable<WebPageRanking> {
         this.key = key;
         this.value = value;
     }
-    
-
+   
 	@Override
 	public int compareTo(WebPageRanking other) {
 		return other.value - this.value;
-		
 	}
-
-	
 }

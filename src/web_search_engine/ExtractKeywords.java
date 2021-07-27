@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,9 +15,10 @@ import textprocessing.In;
 import textprocessing.TrieST;
 
 
-public class extractKeywords {
+public class ExtractKeywords {
 	private static HashMap<String, TrieST<Integer>> WordsMap = new HashMap<String, TrieST<Integer>>();
-	
+
+
 public static String HtmlConversion(String link,int i)
 {  
 	    String content = null;
@@ -47,7 +49,8 @@ public static String HtmlConversion(String link,int i)
         	    			
         	        	   if(m.find()) {
         	   				  String text = m.group();
-        	   				  st.append(text+",");
+        	   				  String lowerCase = text.toLowerCase();
+        	   				  st.append(lowerCase+",");
         	    			}
         	           }
         		}
@@ -99,9 +102,8 @@ if(!WordsMap.containsKey(link)) {
 			 i++;
 		}
 	    StoreKeyWords();
-	    StoreDictionary();
+	    //StoreDictionary();
 	}
-	
 	private static void StoreKeyWords() {
 	    String LocFile = "keywords\\keywordMap.dat";
 	    File file = new File(LocFile);
@@ -135,41 +137,41 @@ if(!WordsMap.containsKey(link)) {
 		
 
 
-private static void StoreDictionary() {
-    String LocFile = "keywords\\dictionary.dat";
-    File file = new File(LocFile);
-    try {
-        BufferedWriter out = new BufferedWriter(
-                      new FileWriter(file));
-         out.close();
-    }
-    catch (IOException e) {
-        System.out.println("Exception Occurred" + e);
-    }
-  
-    HashSet<String> h = new HashSet<String>();
-	WordsMap.forEach((K,V)->{                 // mapofmaps entries
-        V.forEach((X,Y)->{     
-       	 //System.out.println(K);  // inner Hashmap enteries
-       	  //System.out.println(X); 
-       	  //X=X.toLowerCase()+"\n";// print key and value of inner Hashmap 
-        	h.add(X.toLowerCase());
-            });});
-
-	try {
-		BufferedWriter out = new BufferedWriter(
-		new FileWriter(file, true));
-		for (String i : h) {
-			out.write(i+"\n");
-		}
-		out.flush();
-		out.close();
-		}
-		catch (IOException e) {
-		System.out.println("exception occoured" + e);
-		}
-
-}
+//private static void StoreDictionary() {
+//    String LocFile = "keywords\\dictionary.dat";
+//    File file = new File(LocFile);
+//    try {
+//        BufferedWriter out = new BufferedWriter(
+//                      new FileWriter(file));
+//         out.close();
+//    }
+//    catch (IOException e) {
+//        System.out.println("Exception Occurred" + e);
+//    }
+//  
+////    HashSet<String> h = new HashSet<String>();
+////	WordsMap.forEach((K,V)->{                 // mapofmaps entries
+////        V.forEach((X,Y)->{     
+////       	 //System.out.println(K);  // inner Hashmap enteries
+////       	  //System.out.println(X); 
+////       	  //X=X.toLowerCase()+"\n";// print key and value of inner Hashmap 
+////        	h.add(X.toLowerCase());
+////            });});
+//
+//	try {
+//		BufferedWriter out = new BufferedWriter(
+//		new FileWriter(file, true));
+//		for (String i : h) {
+//			out.write(i+"\n");
+//		}
+//		out.flush();
+//		out.close();
+//		}
+//		catch (IOException e) {
+//		System.out.println("exception occoured" + e);
+//		}
+//
+//}
 }
 
 	

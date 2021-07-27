@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;  
 
 
-public class wordSuggestor {
+public class WordSuggestor {
 	public static int editDistance(String word1, String word2) {
 		int len1 = word1.length();
 		int len2 = word2.length();

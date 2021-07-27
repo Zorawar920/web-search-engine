@@ -3,10 +3,10 @@ import java.io.*;
 import org.jsoup.Jsoup;
 import textprocessing.*;
 
-public class genTextFilefrmUrl {
+public class GenTextFilefrmUrl {
 	public static void main(String[] args) 
 		{
-		genTextFilefrmUrl fr= new genTextFilefrmUrl();  
+		GenTextFilefrmUrl fr= new GenTextFilefrmUrl();  
 		In in = new In("urlLinks\\urllist.txt");
 			int i=1;
 	        while (!in.isEmpty()) {

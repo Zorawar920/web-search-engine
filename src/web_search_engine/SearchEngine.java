@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import textprocessing.TrieST;
 
-public class searchEngine {
+public class SearchEngine {
 	
   private static PriorityQueue<WebPageRanking> pQueue = new PriorityQueue<WebPageRanking>();
 
@@ -71,11 +71,15 @@ public class searchEngine {
 		for(var entry : map.entrySet()) {
 			for(var word : str) {
 				
-				if(entry.getValue().contains(word)) {
+				if(entry.getValue().contains(word))
 					freq_score++;
-				}
+				
 			}
-			if(freq_score>0) {
+			if(freq_score == str.size()) {
+				WebPageRanking rank = new WebPageRanking(entry.getKey(), freq_score);
+				pQueue.add(rank);
+			}
+			else if(freq_score>0) {
 				WebPageRanking rank = new WebPageRanking(entry.getKey(), freq_score);
 				pQueue.add(rank);			
 			}
@@ -83,5 +87,7 @@ public class searchEngine {
 	}
 		
 	}
+
+
 
 }
