@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -30,21 +31,39 @@ public class SearchEngine {
 		while(st.hasMoreTokens()) {
 			list.add(st.nextToken());
 		}
+		
         RankWebPages(list, map);	
-        var element = pQueue.peek();
+
         if(pQueue.size()!=0) {
+        	
         	System.out.print("The Top links for your search are : ");
-        	for(var links : pQueue) {
-        		 System.out.println(links.getKey());
-        }
+        	
+        	String[] elements = new String[7];
+        	int i=0;
+        	
+         	for(var links : pQueue) {
+         		
+         	if(i == 7) {
+         		break;
+         	}
+        	elements[i] = links.getKey();
+        	i++;
+	   }
+         	
+         	for(int j=0;j<elements.length;j++) {
+         		System.out.println(elements[j]);
+         	}
+ 
+        	
+
+        	
         }   
+        
            else
         {
         	System.out.print("No links were found on your search. Here are a few suggestions for you to search on : \n");
         	SimilarWords(str);
         }
-       
-
 	}
 
 	
