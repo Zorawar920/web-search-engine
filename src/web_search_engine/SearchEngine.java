@@ -2,8 +2,11 @@ package web_search_engine;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -20,6 +23,7 @@ public class SearchEngine {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Type in to search:");
 		String str = sc.nextLine();
+		str=str.toLowerCase();
 		
 		ArrayList<String> list = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(str);
@@ -28,8 +32,16 @@ public class SearchEngine {
 		}
         RankWebPages(list, map);	
         var element = pQueue.peek();
-        for(var links : pQueue) {
-        	 System.out.println(links.getKey());
+        if(pQueue.size()!=0) {
+        	System.out.print("The Top links for your search are : ");
+        	for(var links : pQueue) {
+        		 System.out.println(links.getKey());
+        }
+        }   
+           else
+        {
+        	System.out.print("No links were found on your search. Here are a few suggestions for you to search on : \n");
+        	SimilarWords(str);
         }
        
 
@@ -87,6 +99,46 @@ public class SearchEngine {
 	}
 		
 	}
+	
+	private static void SimilarWords(String str) {
+		ArrayList<String> dictionary =new ArrayList<String>();
+	try (BufferedReader br = new BufferedReader(new FileReader("keywords\\dictionary.dat"))) {
+	    while (br.ready()) {
+	    	dictionary.add(br.readLine());
+	    }
+	br.close();
+	}
+	  catch (IOException e) {
+	        System.out.println("Exception Occurred" + e);
+	    }
+	List<Integer> percentage_match = new ArrayList<Integer>();
+    String output="";
+    for (int i = 0; i < dictionary.size(); i++) {
+        double p_similar=WordSuggestor.getDistanceDiff(str, dictionary.get(i));
+        int pp_similar=(int) (p_similar*100);
+        percentage_match.add((int) pp_similar);
+    }
+    //1st match
+    int max = Collections.max(percentage_match);
+    int index = percentage_match.indexOf(max);
+    output+=dictionary.get(index)+"\n";
+   
+    percentage_match.set(index,0);
+    //2nd match
+    max = Collections.max(percentage_match);
+    index = percentage_match.indexOf(max);
+    output+=dictionary.get(index)+"\n";
+
+    percentage_match.set(index,0);
+    //3rd match
+    max = Collections.max(percentage_match);
+    index = percentage_match.indexOf(max);
+    output+=dictionary.get(index)+"\n";
+    System.out.println(output);
+    	
+}
+	
+	
 
 
 

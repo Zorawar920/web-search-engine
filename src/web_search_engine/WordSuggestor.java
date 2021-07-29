@@ -4,6 +4,8 @@ import java.util.*;
 
 
 public class WordSuggestor {
+	
+	//Levenshtein distance algorithm given 2 strings finds their difference
 	public static int editDistance(String word1, String word2) {
 		int len1 = word1.length();
 		int len2 = word2.length();
@@ -44,6 +46,7 @@ public class WordSuggestor {
 		return dp[len1][len2];
 	}
 
+	// This method is to assign a longer string as word1 so that always a positive percentage for difference can be calculated
 	public static double getDistanceDiff(String s, String t) {
 		 String longer = s, shorter = t;
 	        if (s.length() < t.length()) { // longer should always have greater length

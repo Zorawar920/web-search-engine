@@ -102,7 +102,7 @@ if(!WordsMap.containsKey(link)) {
 			 i++;
 		}
 	    StoreKeyWords();
-	    //StoreDictionary();
+	    StoreDictionary();
 	}
 	private static void StoreKeyWords() {
 	    String LocFile = "keywords\\keywordMap.dat";
@@ -123,6 +123,7 @@ if(!WordsMap.containsKey(link)) {
 				out.write(entry.getKey() +"::" + "{");
 				for(var key : entry.getValue().keys()) {
 					out.write(key + ",");
+					// System.out.println(key);
 				}
 			out.write("}" + "\n");
 			}
@@ -137,42 +138,41 @@ if(!WordsMap.containsKey(link)) {
 		
 
 
-//private static void StoreDictionary() {
-//    String LocFile = "keywords\\dictionary.dat";
-//    File file = new File(LocFile);
-//    try {
-//        BufferedWriter out = new BufferedWriter(
-//                      new FileWriter(file));
-//         out.close();
-//    }
-//    catch (IOException e) {
-//        System.out.println("Exception Occurred" + e);
-//    }
-//  
-////    HashSet<String> h = new HashSet<String>();
-////	WordsMap.forEach((K,V)->{                 // mapofmaps entries
-////        V.forEach((X,Y)->{     
-////       	 //System.out.println(K);  // inner Hashmap enteries
-////       	  //System.out.println(X); 
-////       	  //X=X.toLowerCase()+"\n";// print key and value of inner Hashmap 
-////        	h.add(X.toLowerCase());
-////            });});
-//
-//	try {
-//		BufferedWriter out = new BufferedWriter(
-//		new FileWriter(file, true));
-//		for (String i : h) {
-//			out.write(i+"\n");
-//		}
-//		out.flush();
-//		out.close();
-//		}
-//		catch (IOException e) {
-//		System.out.println("exception occoured" + e);
-//		}
-//
-//}
+private static void StoreDictionary() {
+    String LocFile = "keywords\\dictionary.dat";
+    File file = new File(LocFile);
+    try {
+        BufferedWriter out = new BufferedWriter(
+                      new FileWriter(file));
+        out.close();
+    }
+    catch (IOException e) {
+        System.out.println("Exception Occurred" + e);
+    }
+  
+    HashSet<String> h = new HashSet<String>();
+	for(var entry : WordsMap.entrySet()) {
+		for(var key : entry.getValue().keys()) {
+			h.add(key.toLowerCase());
+		}
+	}
+	try {
+		BufferedWriter out = new BufferedWriter(
+		new FileWriter(file, true));
+		for (String i : h) {
+			out.write(i+"\n");
+		}
+		out.flush();
+		out.close();
+		}
+		catch (IOException e) {
+		System.out.println("exception occoured" + e);
+		}
+
 }
+	
+}
+
 
 	
 
