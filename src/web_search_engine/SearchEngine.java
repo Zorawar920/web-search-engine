@@ -35,28 +35,13 @@ public class SearchEngine {
         RankWebPages(list, map);	
 
         if(pQueue.size()!=0) {
-        	
-        	System.out.print("The Top links for your search are : ");
-        	
-        	String[] elements = new String[7];
-        	int i=0;
+        	System.out.println();
+           System.out.println("Total Links Founds: "+ pQueue.size());
+        	System.out.print("The links for your search are : ");
         	
          	for(var links : pQueue) {
-         		
-         	if(i == 7) {
-         		break;
+         		System.out.println(links.getKey());
          	}
-        	elements[i] = links.getKey();
-        	i++;
-	   }
-         	
-         	for(int j=0;j<elements.length;j++) {
-         		System.out.println(elements[j]);
-         	}
- 
-        	
-
-        	
         }   
         
            else
