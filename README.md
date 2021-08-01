@@ -47,3 +47,9 @@ drastically improve search time.
 * String is converted to token using Java String Tokenizer.
 * To implement page ranking, occurence of these words along with the URL index are stored in the Priority Queues.
 * If pages are found ,results are printed else Similar word suggestions are generated.
+
+Search Results
+![image](https://user-images.githubusercontent.com/83388538/127771582-13389387-cd20-4fda-9472-dd86f98ff940.png)
+
+![image](https://user-images.githubusercontent.com/83388538/127771598-250ecc88-ac3c-43f5-87dd-eea28e8cb667.png)
+
